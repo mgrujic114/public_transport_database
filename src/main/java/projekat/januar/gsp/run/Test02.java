@@ -2,6 +2,7 @@ package projekat.januar.gsp.run;
 
 import org.hibernate.Session;
 import projekat.januar.gsp.run.abstraction.Test;
+import projekat.januar.gsp.run.utils.HibernateUtils;
 
 
 public class Test02 implements Test {

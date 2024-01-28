@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Setter
 @Getter
 @Entity
-@Table(name="vozilo")
+@Table(name="vozila")
 public class Vozilo implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="vozilo_id")
@@ -19,8 +19,8 @@ public class Vozilo implements Serializable {
     private Integer brojMestaZaSedenje;
     @Column(name="br_mesta_za_stajanje")
     private Integer brojMestaZaStajanje;
-    @Column(name="pogon")
-    private Integer pogon;
+    @Column(name="pogon", length = 10)
+    private String pogon;
     @Column(name="datum_evaluacije")
     private String datumEvaluacije;
 }

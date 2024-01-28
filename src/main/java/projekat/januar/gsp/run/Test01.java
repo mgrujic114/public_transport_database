@@ -3,6 +3,7 @@ package projekat.januar.gsp.run;
 import org.hibernate.Session;
 import projekat.januar.gsp.model.Vozilo;
 import projekat.januar.gsp.run.abstraction.Test;
+import projekat.januar.gsp.run.utils.HibernateUtils;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -23,7 +24,7 @@ public class Test01 implements Test {
         vanzemaljci.sort(Comparator.comparingLong(Vozilo::getVoziloId));
         Integer ukupanBrojMesta = 0;
         for (Vozilo v : vanzemaljci) {
-                    ukupanBrojMesta+=v.getBrojMestaZaSedenje()+v.getBrojMestaZaStajanje();
+            ukupanBrojMesta+=v.getBrojMestaZaSedenje()+v.getBrojMestaZaStajanje();
         }
         System.out.println(ukupanBrojMesta);
         session.getTransaction().commit();

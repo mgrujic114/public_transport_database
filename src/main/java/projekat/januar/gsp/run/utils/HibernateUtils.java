@@ -1,4 +1,4 @@
-package projekat.januar.gsp.run;
+package projekat.januar.gsp.run.utils;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -19,7 +19,7 @@ public class HibernateUtils {
         try {
             Configuration configuration = new Configuration();
             configuration.configure("hibernate.cfg.xml");
-//            configuration.addAnnotatedClass(Regija.class);
+            configuration.addAnnotatedClass(Vozilo.class);
 //            configuration.addAnnotatedClass(Kontinent.class);
 //            configuration.addAnnotatedClass(Drzava.class);
 //            configuration.addAnnotatedClass(Vanzemaljac.class);

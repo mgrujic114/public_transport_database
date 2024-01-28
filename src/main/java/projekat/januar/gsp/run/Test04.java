@@ -2,11 +2,7 @@ package projekat.januar.gsp.run;
 
 import org.hibernate.Session;
 import projekat.januar.gsp.run.abstraction.Test;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import java.util.ArrayList;
-import java.util.List;
+import projekat.januar.gsp.run.utils.HibernateUtils;
 
 public class Test04 implements Test {
     @Override
