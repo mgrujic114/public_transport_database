@@ -25,5 +25,27 @@
 
         <!-- Mapping with model class containing annotations -->
         <mapping class="projekat.januar.gsp.model.Vozilo"/>
+        <mapping class="projekat.januar.gsp.model.TipVozila"/>
+        <mapping class="projekat.januar.gsp.model.PodtipVozila"/>
+        <mapping class="projekat.januar.gsp.model.Garaza"/>
+        <mapping class="projekat.januar.gsp.model.Vozac"/>
+        <mapping class="projekat.januar.gsp.model.Kategorija"/>
+        <mapping class="projekat.januar.gsp.model.RadnoVreme"/>
+        <mapping class="projekat.januar.gsp.model.Terminus"/>
+        <mapping class="projekat.januar.gsp.model.Stajaliste"/>
+        <mapping class="projekat.januar.gsp.model.Linija"/>
+        <mapping class="projekat.januar.gsp.model.Telefon"/>
+        <mapping class="projekat.januar.gsp.model.PreduzeceZaProdajuVozila"/>
+        <mapping class="projekat.januar.gsp.model.TipStajalista"/>
+        <mapping class="projekat.januar.gsp.model.Zona"/>
+        <mapping class="projekat.januar.gsp.model.RedVoznje"/>
+        <mapping class="projekat.januar.gsp.model.Smer"/>
+        <mapping class="projekat.januar.gsp.model.PovlascenaKarta"/>
+        <mapping class="projekat.januar.gsp.model.TipPovalstice"/>
+        <mapping class="projekat.januar.gsp.model.Karta"/>
+        <mapping class="projekat.januar.gsp.model.Smena"/>
+        <mapping class="projekat.januar.gsp.model.PeriodVazenja"/>
+        <mapping class="projekat.januar.gsp.model.TipGaraze"/>
+        <!--<mapping class="projekat.januar.gsp.model.KategorijaVozila"/>-->
     </session-factory>
 </hibernate-configuration>

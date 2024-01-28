@@ -11,10 +11,16 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity
-@Table(name="zona")
+@Table(name="zone")
 public class Zona implements Serializable{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="zona_id")
     private Long zonaId;
+    @Column(name = "naziv", length = 10, unique = true)
+    private String naziv;
 
+    @Override
+    public String toString() {
+        return "Zona{" + naziv + '}';
+    }
 }

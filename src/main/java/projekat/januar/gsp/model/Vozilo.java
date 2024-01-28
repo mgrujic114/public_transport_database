@@ -6,6 +6,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+
+import projekat.januar.gsp.model.TipVozila;
 @NoArgsConstructor
 @Setter
 @Getter
@@ -23,4 +25,21 @@ public class Vozilo implements Serializable {
     private String pogon;
     @Column(name="datum_evaluacije")
     private String datumEvaluacije;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "tip_id", referencedColumnName = "tip_vozila_id", nullable = false)
+    private TipVozila tipVozila;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "podtip_id", referencedColumnName = "podtip_vozila_id", nullable = false)
+    private PodtipVozila podtipVozila;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "garaza_id", referencedColumnName = "garaza_id", nullable = false)
+    private Garaza garaza;
+
+    @Override
+    public String toString() {
+        return "Vozilo{" + "voziloId=" + voziloId + '}';
+    }
 }

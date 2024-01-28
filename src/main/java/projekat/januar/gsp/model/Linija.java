@@ -11,8 +11,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity
-@Table(name="linija")
-
+@Table(name="linije")
 public class Linija implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,4 +19,15 @@ public class Linija implements Serializable{
     private Long linijaId;
     @Column(name="redni_broj", unique = true)
     private Integer redniBroj;
+
+    @ManyToOne
+    @JoinColumn(name = "smena_id", referencedColumnName = "smena_id")
+    private Smena smena;
+
+    @Override
+    public String toString() {
+        return "Linija{" +
+                "redniBroj=" + redniBroj +
+                '}';
+    }
 }

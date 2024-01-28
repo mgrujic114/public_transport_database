@@ -6,14 +6,17 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name="garaza")
+@Table(name="garaze")
 public class Garaza implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="garza_id")
+    @Column(name="garaza_id")
     private Long garazaId;
 
     @Column(name="kapacitet")
@@ -21,4 +24,18 @@ public class Garaza implements Serializable {
     @Column(name="adresa", unique = true, length = 50)
     private String adresa;
 
+    @ManyToOne
+    @JoinColumn(name = "tip_id", referencedColumnName = "tip_garaze_id")
+    private TipGaraze tip;
+
+    @OneToMany
+    private Set<Vozilo> vozila = new HashSet<>();
+
+    @Override
+    public String toString() {
+        return "Garaza{" +
+                ", adresa='" + adresa +
+                "kapacitet=" + kapacitet +
+                '}';
+    }
 }

@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity
-@Table(name="stajaliste")
+@Table(name="stajalista")
 public class Stajaliste implements Serializable{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="stajaliste_id")
@@ -23,4 +23,18 @@ public class Stajaliste implements Serializable{
     private String kod;
     @Column(name = "terminus", columnDefinition = "boolean default false")
     private Boolean jeTerminus;
+
+    @ManyToOne
+    @JoinColumn(name = "tip_stajalista_id", referencedColumnName = "tip_stajalista_id")
+    private TipStajalista tip;
+
+    @ManyToOne
+    @JoinColumn(name = "zona_id", referencedColumnName = "zona_id")
+    private Zona zona;
+    @Override
+    public String toString() {
+        return "Stajaliste{" + nazivStajalista +
+                ", kod='" + kod  +
+                '}';
+    }
 }

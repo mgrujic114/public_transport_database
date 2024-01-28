@@ -4,7 +4,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
-import projekat.januar.gsp.model.Vozilo;
+import projekat.januar.gsp.model.*;
 
 import java.util.Properties;
 
@@ -20,8 +20,28 @@ public class HibernateUtils {
             Configuration configuration = new Configuration();
             configuration.configure("hibernate.cfg.xml");
             configuration.addAnnotatedClass(Vozilo.class);
-//            configuration.addAnnotatedClass(Kontinent.class);
-//            configuration.addAnnotatedClass(Drzava.class);
+            configuration.addAnnotatedClass(TipVozila.class);
+            configuration.addAnnotatedClass(PodtipVozila.class);
+            configuration.addAnnotatedClass(Garaza.class);
+            configuration.addAnnotatedClass(Vozac.class);
+            configuration.addAnnotatedClass(Kategorija.class);
+            configuration.addAnnotatedClass(RadnoVreme.class);
+            configuration.addAnnotatedClass(Terminus.class);
+            configuration.addAnnotatedClass(Stajaliste.class);
+            configuration.addAnnotatedClass(Linija.class);
+            configuration.addAnnotatedClass(Telefon.class);
+            configuration.addAnnotatedClass(PreduzeceZaProdajuVozila.class);
+            configuration.addAnnotatedClass(TipStajalista.class);
+            configuration.addAnnotatedClass(Zona.class);
+            configuration.addAnnotatedClass(RedVoznje.class);
+            configuration.addAnnotatedClass(Smer.class);
+            configuration.addAnnotatedClass(PovlascenaKarta.class);
+            configuration.addAnnotatedClass(TipPovalstice.class);
+            configuration.addAnnotatedClass(Karta.class);
+            configuration.addAnnotatedClass(Smena.class);
+            configuration.addAnnotatedClass(PeriodVazenja.class);
+            configuration.addAnnotatedClass(TipGaraze.class);
+            //configuration.addAnnotatedClass(KategorijaVozila.class);
 //            configuration.addAnnotatedClass(Vanzemaljac.class);
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties()).build();

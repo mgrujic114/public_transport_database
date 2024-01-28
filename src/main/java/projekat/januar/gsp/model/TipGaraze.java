@@ -11,11 +11,18 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity
-@Table(name="tip_garaze")
+@Table(name="tipovi_garaza")
 public class TipGaraze implements Serializable{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="tip_garaze_id")
     private Long tipGarazeId;
     @Column(name = "naziv", length = 15)
     private String naziv;
+
+    @Override
+    public String toString() {
+        return "TipGaraze{" +
+                "naziv='" + naziv +
+                '}';
+    }
 }

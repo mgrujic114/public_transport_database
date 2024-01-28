@@ -6,12 +6,14 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name="period_vazenja")
+@Table(name="periodi_vazenja")
 public class PeriodVazenja implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,4 +23,15 @@ public class PeriodVazenja implements Serializable{
     private String period;
     @Column(name="cena")
     private Double cena;
+
+    @OneToMany
+    private Set<Karta> karte = new HashSet<>();
+
+    @Override
+    public String toString() {
+        return "PeriodVazenja{" +
+                "period='" + period + '\'' +
+                ", cena=" + cena +
+                '}';
+    }
 }

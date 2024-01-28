@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity
-@Table(name="telefon")
+@Table(name="telefoni")
 public class Telefon implements Serializable{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="telefon_id")
@@ -21,4 +21,12 @@ public class Telefon implements Serializable{
     @Column(name = "broj", length = 7)
     private String broj;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "preduzece_id", referencedColumnName = "preduzece_id")
+    private PreduzeceZaProdajuVozila preduzece;
+
+    @Override
+    public String toString() {
+        return "Telefon{" + pozivniBroj +  broj + '}';
+    }
 }
