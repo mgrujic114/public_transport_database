@@ -1,6 +1,7 @@
 package projekat.januar.gsp.run;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import projekat.januar.gsp.model.Kategorija;
 import projekat.januar.gsp.model.RadnoVreme;
 import projekat.januar.gsp.model.Vozac;
@@ -18,43 +19,56 @@ public class Test4 implements Test {
     @Override
     public void test() {
         Session session = HibernateUtils.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-        CriteriaQuery<Vozac> voziloCriteriaQuery
-                = criteriaBuilder.createQuery(Vozac.class);
-        voziloCriteriaQuery.from(Vozac.class);
-        List<Vozac> vanzemaljci
-                = session.createQuery(voziloCriteriaQuery).getResultList();
-        vanzemaljci.sort(Comparator.comparingLong(Vozac::getVozacId));
-        Integer brojVozaca = 0;
-        RadnoVreme rv;
-        String radniDan;
-        String subota;
-        String nedelja;
-        Double ukupnoRadnoVreme=0.00;
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+            CriteriaQuery<Vozac> voziloCriteriaQuery
+                    = criteriaBuilder.createQuery(Vozac.class);
+            voziloCriteriaQuery.from(Vozac.class);
+            List<Vozac> vanzemaljci
+                    = session.createQuery(voziloCriteriaQuery).getResultList();
+            vanzemaljci.sort(Comparator.comparingLong(Vozac::getVozacId));
+            Integer brojVozaca = 0;
+            RadnoVreme rv;
+            String radniDan;
+            String subota;
+            String nedelja;
+            Double ukupnoRadnoVreme=0.00;
 
-        for (Vozac v : vanzemaljci) {
-            rv = v.getRadnoVreme();
-            radniDan = rv.getRadniDan();
-            subota = rv.getSubota();
-            nedelja = rv.getNedelja();
-            if (! (radniDan.equalsIgnoreCase("neradni dan"))){
-                ukupnoRadnoVreme+=parsiraj(radniDan)*5;
+            for (Vozac v : vanzemaljci) {
+                rv = v.getRadnoVreme();
+                radniDan = rv.getRadniDan();
+                subota = rv.getSubota();
+                nedelja = rv.getNedelja();
+                if (! (radniDan.equalsIgnoreCase("neradni dan"))){
+                    ukupnoRadnoVreme+=parsiraj(radniDan)*5;
+                }
+                if (! (subota.equalsIgnoreCase("neradni dan"))){
+                    ukupnoRadnoVreme+=parsiraj(subota);
+                }
+                if (! (nedelja.equalsIgnoreCase("neradni dan"))){
+                    ukupnoRadnoVreme+=parsiraj(nedelja);
+                }
+                if (ukupnoRadnoVreme>40){
+                    brojVozaca++;
+                }
+                ukupnoRadnoVreme=0.0;
             }
-            if (! (subota.equalsIgnoreCase("neradni dan"))){
-                ukupnoRadnoVreme+=parsiraj(subota);
-            }
-            if (! (nedelja.equalsIgnoreCase("neradni dan"))){
-                ukupnoRadnoVreme+=parsiraj(nedelja);
-            }
-            if (ukupnoRadnoVreme>40){
-                brojVozaca++;
-            }
-            ukupnoRadnoVreme=0.0;
+            System.out.println("Izračunati koliko vozača radi više od 40h nedeljno.");
+            System.out.println("Vise od 40h nedeljno radi: " + brojVozaca + " vozaca");
+            session.getTransaction().commit();
         }
-        System.out.println("Izračunati koliko vozača radi više od 40h nedeljno.");
-        System.out.println("Vise od 40h nedeljno radi: " + brojVozaca + " vozaca");
-        session.getTransaction().commit();
+        catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (session.isOpen()) {
+                session.close();
+            }
+        }
     }
 
     private Double parsiraj(String radniDan){
