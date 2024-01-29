@@ -26,12 +26,59 @@ public class Test4 implements Test {
         List<Vozac> vanzemaljci
                 = session.createQuery(voziloCriteriaQuery).getResultList();
         vanzemaljci.sort(Comparator.comparingLong(Vozac::getVozacId));
-        Integer broj_vozaca = 0;
+        Integer brojVozaca = 0;
         RadnoVreme rv;
-        for (Vozac v : vanzemaljci) {
+        String radniDan;
+        String subota;
+        String nedelja;
+        Double ukupnoRadnoVreme=0.00;
 
+        for (Vozac v : vanzemaljci) {
+            rv = v.getRadnoVreme();
+            radniDan = rv.getRadniDan();
+            subota = rv.getSubota();
+            nedelja = rv.getNedelja();
+            if (! (radniDan.equalsIgnoreCase("neradni dan"))){
+                ukupnoRadnoVreme+=parsiraj(radniDan)*5;
+            }
+            if (! (subota.equalsIgnoreCase("neradni dan"))){
+                ukupnoRadnoVreme+=parsiraj(subota);
+            }
+            if (! (nedelja.equalsIgnoreCase("neradni dan"))){
+                ukupnoRadnoVreme+=parsiraj(nedelja);
+            }
+            if (ukupnoRadnoVreme>40){
+                brojVozaca++;
+            }
+            ukupnoRadnoVreme=0.0;
         }
-        System.out.println(broj_vozaca);
+        System.out.println("Izračunati koliko vozača radi više od 40h nedeljno.");
+        System.out.println("Vise od 40h nedeljno radi: " + brojVozaca + " vozaca");
         session.getTransaction().commit();
+    }
+
+    private Double parsiraj(String radniDan){
+        String pocetakSat;
+        String krajSat;
+        String pocetakMinut;
+        String krajMinut;
+        String[] pars1 = radniDan.split("-");
+        String[] pars2 = pars1[0].split(":");
+        String[] pars3 = pars1[1].split(":");
+        pocetakSat = pars2[0];
+        pocetakMinut = pars2[1];
+        krajSat = pars3[0];
+        krajMinut = pars3[1];
+
+        Double pS = Double.parseDouble(pocetakSat);
+        Double pM = Double.parseDouble(pocetakMinut)/60;
+        Double kS = Double.parseDouble(krajSat);
+        Double kM = Double.parseDouble(krajMinut)/60;
+        Double sati = kS-pS;
+        Double minuti = kM-pM;
+
+        Double rez = sati-minuti;
+        return rez;
+
     }
 }

@@ -34,6 +34,7 @@ public class Test3 implements Test {
             }
             else broj_vozaca.put(v.getKategorija(), 1);
         }
+        System.out.println("Za svaku kategoriju vozača izračunati koliko vozača pripada toj kategoriji.");
         System.out.println(broj_vozaca);
         session.getTransaction().commit();
     }
