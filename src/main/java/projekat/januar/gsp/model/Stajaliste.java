@@ -31,6 +31,13 @@ public class Stajaliste implements Serializable{
     @ManyToOne
     @JoinColumn(name = "zona_id", referencedColumnName = "zona_id")
     private Zona zona;
+    @OneToOne
+    private Terminus terminus;
+
+    public boolean isTerminus() {
+        return this.terminus != null;
+    }
+
     @Override
     public String toString() {
         return "Stajaliste{" + nazivStajalista +
